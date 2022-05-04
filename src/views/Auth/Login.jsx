@@ -10,14 +10,17 @@ export default function Login() {
   const auth = useAuth();
   const { formState, handleFormChange } = useForm({ email: '', password: '' });
   const [error, setError] = useState(null);
+  const [email, setEmail] = useState('');
 
   // The `from` property of `location.state` gives us
   // the URL to redirect to after logging in.
   const { from } = location.state || { from: { pathname: '/' } };
+  console.log(from);
 
   const handleLogin = (event) => {
     event.preventDefault();
-    const loginWasSuccessful = auth.login(formState.email, formState.password);
+    // const loginWasSuccessful = auth.login(formState.email, formState.password);
+    // const loginWasUnsuccessful = setError('Login was Unsuccessful');
 
     // TODO: If login was unsuccessful, set an error with a message
     // to display to the user that their login failed.
@@ -33,17 +36,9 @@ export default function Login() {
       <h3>You must log in to view the page at {from.pathname}</h3>
       <form onSubmit={handleLogin} className={styles.loginForm}>
         <label>Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-        />{' '}
+        <input id="email" name="email" type="email" value={email} />{' '}
         <label>Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-        />
+        <input id="password" name="password" type="password" />
         <button type="submit" aria-label="Sign In">
           Sign in
         </button>
